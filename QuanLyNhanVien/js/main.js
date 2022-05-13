@@ -95,19 +95,20 @@ getEle('btnThemNV').onclick = function () {
     console.log(arrTr);
     var arrBtnDel = document.getElementsByClassName('btnDelete');
     console.log(arrBtnDel);
-    arrBtnDel[0].onclick = function () {
-        console.log(123);
-    }
     // arrBtnDel.forEach(function(item, index, arr) {
     //     var eachTr = arrTr[index];
     //     arr[index].onclick = function() {deleteButton(eachTr)};
     //     // btnDel.onclick = function() {deleteButton(eachTr)};
     // });
-    // for (i = arrBtnDel.length - 1; i > 0; i--) {
-    //     var btnDel = arrBtnDel[i];
-    //     var eachTr = arrTr[i];
-    //     btnDel.onclick = function () {deleteButton(eachTr)};
-    // }
+    for (i = arrBtnDel.length - 1; i >= 0; i--) {
+        var btnDel = arrBtnDel[i];
+        console.log(btnDel);
+        btnDel.onclick = function () {
+            var parent = getEle('tableDanhSach');
+            // console.log(parent);
+            parent.removeChild();
+        };
+    }
     
     
     
