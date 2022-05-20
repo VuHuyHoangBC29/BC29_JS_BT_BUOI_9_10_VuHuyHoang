@@ -1,5 +1,7 @@
 var dsnv = new DanhSachNhanVien();
 
+getLocalStorage();
+
 function getEle(id) {
     return document.getElementById(id);
 };
@@ -19,27 +21,97 @@ function layThongTinNV() {
     return nhanVien;
 };
 
+getEle('btnThem').onclick = function () {
+    getEle('tknv').value = '';
+    getEle('name').value = '';
+    getEle('email').value = '';
+    getEle('password').value = '';
+    getEle('datepicker').value = '';
+    getEle('luongCB').value = '';
+    getEle('chucvu').value = '';
+    getEle('gioLam').value = '';
+    getEle('btnCapNhat').disabled = true;
+
+    getEle('btnThemNV').style.display = "inline-block";
+}
+
 getEle('btnThemNV').onclick = function () {
     var nhanVien = layThongTinNV();
     dsnv.themNV(nhanVien);
     taoBang(dsnv.arr);
+    setLocalStorage();
 };
 
 function taoBang(data) {
     var content = '';
-    data.forEach(function(item){
+    data.forEach(function (item) {
         content += `
             <tr>
                 <td>${item.tknv}</td>
                 <td>${item.name}</td>
                 <td>${item.email}</td>
-                <td>${item.datePicker}</td>
-                <td>${item.chucVu}</td>
+                <td>${item.datepicker}</td>
+                <td>${item.chucvu}</td>
+                <td>
+                    <button class="btn btn-success text-white btnEdit" onclick="suaNV('${item.tknv}')" data-toggle="modal"
+                    data-target="#myModal"> Edit </button> 
+                    <button class="btn btn-danger text-white btnDelete" onclick="xoaNV('${item.tknv}')"> Delete </button>
+                </td>
             </tr>
         `;
     });
-    getEle('tableDanhSanh').innerHTML = content;
+    getEle('tableDanhSach').innerHTML = content;
 };
+
+function suaNV(id) {
+    var nv = dsnv.suaNV(id);
+    if (nv) {
+        getEle('tknv').value = nv.tknv;
+        getEle('name').value = nv.name;
+        getEle('email').value = nv.email;
+        getEle('password').value = nv.password;
+        getEle('datepicker').value = nv.datepicker;
+        getEle('luongCB').value = nv.luongCB;
+        getEle('chucvu').value = nv.chucvu;
+        getEle('gioLam').value = nv.gioLam;
+    }
+    getEle('btnCapNhat').disabled = false;
+    getEle('btnThemNV').style.display = "none";
+    getEle('tknv').disabled = true;
+}
+
+getEle("btnCapNhat").onclick = function (){
+    var nhanVien = layThongTinNV();
+    dsnv.capNhat(nhanVien);
+    taoBang(dsnv.arr);
+    setLocalStorage();
+}
+
+function xoaNV(id) {
+    dsnv.xoaNV(id);
+    taoBang(dsnv.arr);
+    setLocalStorage();
+}
+
+getEle('searchName').addEventListener("keyup", function(){
+    var searchName = getEle('searchName').value;
+    var mangTimKiem = dsnv.timKiemNV(searchName);
+    taoBang(mangTimKiem);
+});
+
+function setLocalStorage() {
+    var dataString = JSON.stringify(dsnv.arr);
+    localStorage.setItem("DSNV", dataString);
+}
+
+function getLocalStorage() {
+    if (localStorage.getItem("DSNV")) {
+        var dataString = localStorage.getItem("DSNV");
+        var dataJson = JSON.parse(dataString);
+        dsnv.arr = dataJson;
+        taoBang(dsnv.arr);
+    }
+}
 
 // {
 //     var nvTR = document.createElement('tr');

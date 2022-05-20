@@ -5,6 +5,6 @@ function NhanVien(_tknv, _name, _email, _password, _datepicker, _luongCB, _chucv
     this.password = _password;
     this.datepicker = _datepicker;
     this.luongCB = _luongCB;
-    this.chucVu = _chucvu;
+    this.chucvu = _chucvu;
     this.gioLam = _gioLam;
 }
