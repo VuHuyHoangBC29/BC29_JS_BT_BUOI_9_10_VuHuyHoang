@@ -52,6 +52,7 @@ function taoBang(data) {
                 <td>${item.email}</td>
                 <td>${item.datepicker}</td>
                 <td>${item.chucvu}</td>
+                <td></td>
                 <td>
                     <button class="btn btn-success text-white btnEdit" onclick="suaNV('${item.tknv}')" data-toggle="modal"
                     data-target="#myModal"> Edit </button> 

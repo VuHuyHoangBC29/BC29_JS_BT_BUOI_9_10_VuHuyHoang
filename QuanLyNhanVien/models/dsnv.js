@@ -40,9 +40,9 @@ function DanhSachNhanVien() {
     this.timKiemNV = function (keyword) {
         var mangTimKiem = [];
         this.arr.forEach(function(item){
-            if (item.tknv === keyword) {
+            if (item.tknv.toLowerCase().indexOf(keyword.toLowerCase()) > -1){
                 mangTimKiem.push(item);
-            }
+            };
         });
         return mangTimKiem;
     };
