@@ -51,6 +51,25 @@ function Validation() {
     return false;
   };
 
+  this.kiemTraTKNVTonTai = function (value, errorId, mess, arr) {
+    var isStatus = true;
+
+    arr.forEach(function (item) {
+      if (item.tknv === value) {
+        isStatus = false;
+      }
+    });
+
+    if (isStatus) {
+      getEle(errorId).innerHTML = "";
+      getEle(errorId).style.display = "none";
+      return true;
+    }
+    getEle(errorId).innerHTML = mess;
+    getEle(errorId).style.display = "block";
+    return false;
+  };
+
   this.kiemTraEmail = function (value, errorId, mess) {
     var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 

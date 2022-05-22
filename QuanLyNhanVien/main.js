@@ -31,7 +31,7 @@ function defaultStatus() {
   getEle("tbGiolam").innerHTML = "";
 }
 
-function layThongTinNV() {
+function layThongTinNV(isAdd) {
   var _tknv = getEle("tknv").value;
   var _name = getEle("name").value;
   var _email = getEle("email").value;
@@ -45,15 +45,23 @@ function layThongTinNV() {
   var isValid = true;
 
   //tknv
-  isValid &=
-    validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng nhập tài khoản") &&
-    validation.kiemTraDoDaiKiTu(
-      _tknv,
-      "tbTKNV",
-      4,
-      6,
-      "Tài khoản phải có 4-6 ký tự"
-    );
+  if (isAdd) {
+    isValid &=
+      validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng nhập tài khoản") &&
+      validation.kiemTraDoDaiKiTu(
+        _tknv,
+        "tbTKNV",
+        4,
+        6,
+        "Tài khoản phải có 4-6 ký tự"
+      ) &&
+      validation.kiemTraTKNVTonTai(
+        _tknv,
+        "tbTKNV",
+        "Tài khoản đã tồn tại",
+        dsnv.arr
+      );
+  }
 
   //tenNV
   isValid &=
@@ -152,7 +160,7 @@ getEle("btnThem").onclick = function () {
 };
 
 getEle("btnThemNV").onclick = function () {
-  var nhanVien = layThongTinNV();
+  var nhanVien = layThongTinNV(true);
   if (nhanVien) {
     var nhanVien = layThongTinNV();
     dsnv.themNV(nhanVien);
@@ -203,7 +211,7 @@ function suaNV(id) {
 }
 
 getEle("btnCapNhat").onclick = function () {
-  var nhanVien = layThongTinNV();
+  var nhanVien = layThongTinNV(false);
   dsnv.capNhat(nhanVien);
   taoBang(dsnv.arr);
   setLocalStorage();
