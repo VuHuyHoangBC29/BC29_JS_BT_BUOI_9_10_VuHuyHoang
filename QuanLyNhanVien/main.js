@@ -114,7 +114,7 @@ function layThongTinNV(isAdd) {
       "tbLuongCB",
       1000000,
       20000000,
-      "Vui lòng nhập mức lương hợp lệ"
+      "Vui lòng nhập mức lương hợp lệ: 1.000.000 đến 20.000.000"
     );
 
   //chucVu
@@ -126,13 +126,13 @@ function layThongTinNV(isAdd) {
 
   //gioLam
   isValid &=
-    validation.kiemTraRong(_gioLam, "tbGiolam", "Vui lòng nhập giờ làm") &&
+    validation.kiemTraRong(_gioLam, "tbGiolam", "Vui lòng nhập số giờ làm") &&
     validation.kiemTraGioLam(
       _gioLam,
       "tbGiolam",
       80,
       200,
-      "Vui lòng nhập giờ làm hợp lệ"
+      "Vui lòng nhập số giờ làm hợp lệ: 80 - 200 giờ"
     );
 
   //check isValid
